@@ -12,7 +12,7 @@ FROM vettura JOIN
 ON vettura.numeroGara = informazioniVettura.vettura
 GROUP BY scuderia; 
 
--- operazione 15 incompleta        
+-- operazione 15 incompleta (mancano le conversioni)
 SELECT SUM(iscrizione.esito) AS punti, SUM(gara.durata) AS tempo, SUM(iscrizione.esito) / SUM(gara.durata) AS rapporto, vettura
 FROM gara JOIN iscrizione
 ON gara.nome = iscrizione.gara
