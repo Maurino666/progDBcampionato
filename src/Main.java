@@ -5,7 +5,7 @@ public class Main{
         Connection con = null;
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             
             String url = "jdbc:mysql://localhost:3306/campionato";
             String username = "root"; 
@@ -14,12 +14,11 @@ public class Main{
             con = DriverManager.getConnection(url,username,pwd);
         }
         catch(Exception e){
+            e.printStackTrace();
             System.out.println("Connessione fallita");
         }
 
         DBmanager db = new DBmanager(con);
-
-        db.operazione1("FratelliGiorgi", "Italia");
 
     }
 }
