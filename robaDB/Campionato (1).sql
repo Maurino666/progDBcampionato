@@ -13,7 +13,7 @@ lunghezza		FLOAT NOT NULL
 CREATE TABLE gara(
 nome			VARCHAR(32) PRIMARY KEY,
 data			DATE NOT NULL,
-durata			TIME,
+durata			INT,
 circuito		VARCHAR(32) NOT NULL,
 tipo			ENUM('ASCIUTTO','BAGNATO') DEFAULT 'ASCIUTTO' NOT NULL,
 
@@ -33,6 +33,7 @@ CREATE TABLE vettura(
 numeroGara 		INT AUTO_INCREMENT PRIMARY KEY,
 modello			VARCHAR(32) NOT NULL,
 scuderia		VARCHAR(32) NOT NULL,
+punti           INT DEFAULT 0 NOT NULL,
 
 FOREIGN KEY(scuderia) REFERENCES scuderia(nome)
 ON UPDATE		CASCADE
@@ -56,6 +57,7 @@ ON DELETE CASCADE,
 
 PRIMARY KEY(gara, vettura)
 
+CHECK (NOT(esito IS NOT NULL AND notivoRitito IS NOT NULL));
 ); 
 
 -- creazione tabella pilota
