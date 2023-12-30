@@ -39,8 +39,19 @@ public class WindowManager extends JFrame{
         this.initOpPanel1();
         this.initOpPanel2();
         this.initAusOp2();
+
+        Object[] options = {"conferma", "annulla"};
+        int result = JOptionPane.showOptionDialog(
+                this,
+                AusiliaryPanel[0],
+                "Inserisci i dettagli",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                options,
+                options[0]
+        );
         
-        this.getContentPane().add(AusiliaryPanel[0]);
         this.setVisible(true);
         
     }
@@ -194,7 +205,7 @@ public class WindowManager extends JFrame{
         secondPanel.add(fieldsPanel2);
 
         //Seconda organizzazione del pannello 
-        JPanel enclosedSecondPanel = new JPanel(new FlowLayout());
+        JPanel enclosedSecondPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         enclosedSecondPanel.add(secondPanel);
 
         /*
@@ -223,7 +234,7 @@ public class WindowManager extends JFrame{
         thirdPanel.add(fieldsPanel3);
 
         //Seconda organizzazione del pannello 
-        JPanel enclosedThirdPanel = new JPanel(new FlowLayout());
+        JPanel enclosedThirdPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         enclosedThirdPanel.add(thirdPanel);
 
         /*
@@ -236,7 +247,7 @@ public class WindowManager extends JFrame{
         //Pannello dei Fields
         JTextField txtNMarce = new JTextField();
         txtNMarce.setPreferredSize(new Dimension(300, 25));
-        JPanel fieldsPanel4 = new JPanel(new GridLayout(2, 1));
+        JPanel fieldsPanel4 = new JPanel(new GridLayout(1, 1));
         fieldsPanel4.add(txtNMarce);
 
         //Prima organizzazione del pannello 
@@ -246,7 +257,7 @@ public class WindowManager extends JFrame{
         fourthPanel.add(fieldsPanel4);
 
         //Seconda organizzazione del pannello 
-        JPanel enclosedFourthPanel = new JPanel(new FlowLayout());
+        JPanel enclosedFourthPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         enclosedFourthPanel.add(fourthPanel);
 
         /*
@@ -254,11 +265,10 @@ public class WindowManager extends JFrame{
         */
         CardLayout cardLayout = new CardLayout();
         JPanel changingPanel = new JPanel(cardLayout);
-        changingPanel.add("MOTORE", enclosedSecondPanel);
-        changingPanel.add("TELAIO", enclosedThirdPanel);
-        changingPanel.add("CAMBIO", enclosedFourthPanel);
-
-        changingPanel.setVisible(true);
+        changingPanel.add(enclosedSecondPanel, "MOTORE");
+        changingPanel.add(enclosedThirdPanel, "TELAIO");
+        changingPanel.add(enclosedFourthPanel, "CAMBIO");
+        cardLayout.show(changingPanel, "MOTORE");
 
         
         /*
@@ -294,7 +304,7 @@ public class WindowManager extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Cambia il pannello visibile in base alla selezione del tipo
-                cardLayout.show(changingPanel, (String) tipiSelector.getSelectedItem());
+                cardLayout.show(changingPanel, (String)tipiSelector.getSelectedItem());
             }
         });
 
@@ -312,7 +322,7 @@ public class WindowManager extends JFrame{
         firstPanel.add(fieldsPanel1);
 
         //Seconda organizzazione del pannello 
-        JPanel enclosedFirstPanel = new JPanel(new FlowLayout());
+        JPanel enclosedFirstPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         enclosedFirstPanel.add(firstPanel);
        
         /*
@@ -320,9 +330,12 @@ public class WindowManager extends JFrame{
         */
 
         //Pannello divisore principale
-        JPanel middlePanel = new JPanel(new GridLayout(2, 1));
+        JPanel middlePanel = new JPanel();
+        middlePanel.setLayout(new BoxLayout(middlePanel, BoxLayout.Y_AXIS));
         middlePanel.add(enclosedFirstPanel);
         middlePanel.add(changingPanel);
+
+     
 
         //Pannello di Conferma
         JButton btnConferma = new JButton("conferma");
@@ -333,19 +346,10 @@ public class WindowManager extends JFrame{
 
         //Inserimento pannello principale dell'operazione
         AusiliaryPanel[0] = new JPanel(new BorderLayout());
-        AusiliaryPanel[0].add(enclosedFirstPanel, BorderLayout.CENTER);
+        AusiliaryPanel[0].add(middlePanel, BorderLayout.CENTER);
         AusiliaryPanel[0].add(southPanel, BorderLayout.SOUTH);
 
         AusiliaryPanel[0].setVisible(true);
 
     }
-
-
-
-
-
-    
-
-
-
 }
