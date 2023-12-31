@@ -30,7 +30,7 @@ paese			VARCHAR(32) NOT NULL
 
 -- creazione tabella vettura
 CREATE TABLE vettura(
-numeroGara 		INT AUTO_INCREMENT PRIMARY KEY,
+numeroGara 		INT PRIMARY KEY,
 modello			VARCHAR(32) NOT NULL,
 scuderia		VARCHAR(32) NOT NULL,
 punti           INT DEFAULT 0 NOT NULL,
