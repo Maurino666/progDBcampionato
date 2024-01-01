@@ -39,6 +39,9 @@ public class MainWindow extends JFrame{
             opButton[i] = new JButton("Op" + (i+1));  
             mainPanel.add(opButton[i]);
         }
+        
+
+
         mainPanel.setVisible(true);
     };
 }
