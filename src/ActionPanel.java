@@ -5,7 +5,7 @@ import java.util.*;
 
 public class ActionPanel extends JPanel{
     
-    piblic List<JComponent> panelInputs = new ArrayList<>(); 
+    public List<JComponent> panelInputs = new ArrayList<>(); 
 
     /**modo semplice per ottenere un JTextField personalizzato
      * @return
