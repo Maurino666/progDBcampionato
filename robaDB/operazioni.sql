@@ -56,7 +56,8 @@ UPDATE iscrizione SET esito = [esito], motivoRitiro = [motivo] WHERE gara = [gar
 UPDATE vettura SET punti = punti + [valore calcolato] WHERE numeroGara = [vettura];
 
 -- operazione 7 
-SELECT tipo FROM componente WHERE vettura = [vettura];
+SELECT DISTINCT tipo FROM componente WHERE vettura = [vettura];
+
 
 -- operazione 8
 SELECT scuderia, SUM(quotaFinanziamento) AS somma

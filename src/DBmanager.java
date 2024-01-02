@@ -24,7 +24,7 @@ public class DBmanager {
             int count = metaData.getColumnCount();
 
             while(result.next()){
-                Map<String, Object> record = new HashMap<>();
+                Map<String, Object> record = new LinkedHashMap<>();
                 
                 for(int i = 1; i <= count; i++){
                     String columName = metaData.getColumnName(i);

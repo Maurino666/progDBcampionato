@@ -16,6 +16,7 @@ public class Btn1Action{
 
     public void showAction(){
         Object[] options = {"annulla", "conferma"};
+        
         int result = JOptionPane.showOptionDialog(
                 parentPanel,
                 mainPanel,

@@ -7,6 +7,43 @@ public class ActionPanel extends JPanel{
     
     public List<JComponent> panelInputs = new ArrayList<>(); 
 
+
+
+    public static JScrollPane getNewScrollTable(List<Map<String, Object>> list){
+        JTable table = getNewTable(list);
+        JScrollPane  scroll = new JScrollPane(table);
+        return scroll;
+    };
+    /**modo semplice per ottenere un JTextField personalizzato
+     * passando una lista di mappe 
+     * @return
+     * JTable
+     */
+    public static JTable getNewTable(List<Map<String, Object>> list){
+        Object[][] matrix = resultToMatrix(list);
+        List<String> nameList = new ArrayList<>(list.get(0).keySet());
+        Object[] nameArr = nameList.toArray();
+      
+        JTable result = new JTable(new javax.swing.table.DefaultTableModel(matrix, nameArr){@Override public boolean isCellEditable(int rowIndex, int mColIndex) { return false; }});
+        return result;
+    }
+
+    public static Object[][] resultToMatrix(List<Map<String, Object>> list){
+        List<String> keyList = new ArrayList<>(list.get(0).keySet());
+        int sizeY = list.size();
+        int sizeX = list.get(0).size();
+        Object[][] matrix = new Object[sizeY][sizeX];
+        for(int i = 0; i < sizeY; i++){
+            Map<String, Object> map = list.get(i);
+            int j = 0;
+            for(String key : keyList){
+                matrix[i][j] = map.get(key);
+                j++;
+            }
+        }
+        return matrix;
+    }
+
     /**modo semplice per ottenere un JTextField personalizzato
      * @return
      * JTextField
