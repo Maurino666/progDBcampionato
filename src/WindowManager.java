@@ -2,7 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
+/*[QUESTA CLASSE NON È PARTE DEL PROGETTO]
+ * contiene solo del codice di pannelli che ho scritto
+ * da cui prendere spunto per la realizzazione della GUI
+ */
 public class WindowManager extends JFrame{
     
     //variabili per i pannelli
