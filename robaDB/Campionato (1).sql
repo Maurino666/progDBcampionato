@@ -55,9 +55,9 @@ FOREIGN KEY(vettura) REFERENCES vettura(numeroGara)
 ON UPDATE CASCADE
 ON DELETE CASCADE,
 
-PRIMARY KEY(gara, vettura)
+PRIMARY KEY(gara, vettura),
 
-CHECK (NOT(esito IS NOT NULL AND notivoRitito IS NOT NULL));
+CHECK (NOT(esito IS NOT NULL AND motivoRitito IS NOT NULL))
 ); 
 
 -- creazione tabella pilota
