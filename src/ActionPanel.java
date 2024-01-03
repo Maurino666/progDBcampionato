@@ -8,7 +8,19 @@ public class ActionPanel extends JPanel{
     public List<JComponent> panelInputs = new ArrayList<>(); 
 
 
+    public JTextField getListTextField(int i){
+        return (JTextField)panelInputs.get(i);
+    }
 
+    public JComboBox<String> getListComboBox(int i){
+        return (JComboBox<String>)panelInputs.get(i);
+    }
+
+    /**modo semplice per ottenere un JScrollPane personalizzato
+     * passando una lista di mappe 
+     * @return
+     * JScrollPane
+     */
     public static JScrollPane getNewScrollTable(List<Map<String, Object>> list){
         JTable table = getNewTable(list);
         JScrollPane  scroll = new JScrollPane(table);

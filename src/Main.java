@@ -18,7 +18,13 @@ public class Main{
             System.out.println("Connessione fallita");
         }
 
-        DBmanager db = new DBmanager(con);
+        OperationManager op = new OperationManager(con);
+
+        BtnAction.operationManager = op;
+
+        Btn1Action btn = new Btn1Action(null);
+
+        btn.showAction();
 
     }
 }

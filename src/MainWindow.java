@@ -3,6 +3,8 @@ import java.awt.*;
 
 public class MainWindow extends JFrame{
     
+    public static 
+
     //Dichiarazione mainPanel
     JPanel mainPanel;
 

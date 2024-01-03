@@ -37,15 +37,15 @@ public class OperationManager extends DBmanager{
 
     // operazione 1: registrazione di una scuderia
     public int insertScuderia (String nome, String paese){
-        lastNumeroGara++;
-        String query = "INSERT INTO scuderia(numeroGara, nome, paese) VALUES " + makeAttributi(Integer.toString(lastNumeroGara), nome, paese) + ";";
+        
+        String query = "INSERT INTO scuderia(nome, paese) VALUES " + makeAttributi(nome, paese) + ";";
         return runUpdate(query);
     }
 
     //operazione 2
     public int insertVettura(String modello, String scuderia){
-        
-        String query = "INSERT INTO vettura(modello, scuderia) VALUES" + makeAttributi(modello, scuderia) + ";";
+        lastNumeroGara++;
+        String query = "INSERT INTO vettura(numeroGara, modello, scuderia) VALUES" + makeAttributi(Integer.toString(lastNumeroGara), modello, scuderia) + ";";
         return runUpdate(query); 
 
     }
