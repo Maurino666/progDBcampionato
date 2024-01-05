@@ -11,17 +11,23 @@ public class Btn2Action extends BtnAction{
     ActionPanel componentePanel;
 
     JComboBox<String> tipiSelector;
-    CardLayout changingComponentFields = new CardLayout();
-    JPanel changingPanel = new JPanel(changingComponentFields);
     ActionPanel telaioPanel, motorePanel, cambioPanel;
     
 
     public Btn2Action(JPanel parentPanel){
         this.parentPanel = parentPanel;
+        initVetturaPanel();
+        initComponenteMainPanel();
+    }
+
+    private void initVetturaPanel(){
         this.vetturaPanel = new ActionPanel(
             "modello ", ActionPanel.getNewTextField(),
             "scuderia ", ActionPanel.getNewTextField()
         );
+    }
+
+    private void initComponenteMainPanel(){
         this.componentePanel = new ActionPanel(
             "codice ", ActionPanel.getNewTextField(),
             "data istallazione ", ActionPanel.getNewTextField(),
@@ -41,6 +47,11 @@ public class Btn2Action extends BtnAction{
         this.cambioPanel = new ActionPanel(
             "numero marce ", ActionPanel.getNewStringComboBox("7", "8")
         );
+
+        
+        CardLayout changingComponentFields = new CardLayout();
+        JPanel changingPanel = new JPanel(changingComponentFields);
+
         changingPanel.add(telaioPanel, "TELAIO");
         changingPanel.add(motorePanel, "MOTORE");
         changingPanel.add(cambioPanel, "CAMBIO");
@@ -54,6 +65,7 @@ public class Btn2Action extends BtnAction{
             }
         });
 
+        componenteMainPanel = new JPanel(new GridLayout(2, 1));
         componenteMainPanel.add(componentePanel);
         componenteMainPanel.add(changingPanel);
     }
@@ -79,8 +91,11 @@ public class Btn2Action extends BtnAction{
                 vetturaPanel.getListTextField(0).getText(),
                 vetturaPanel.getListTextField(1).getText()
             );
+
+
+
             if(result == 1){
-            
+                String vettura = new String(Integer.toString(operationManager.getLastNumeroGara()));
                 for(int i = 0; i<3 && optionResult == 1; i++){
                     optionResult = JOptionPane.showOptionDialog(
                             parentPanel,
@@ -89,27 +104,71 @@ public class Btn2Action extends BtnAction{
                             JOptionPane.OK_CANCEL_OPTION,
                             JOptionPane.PLAIN_MESSAGE,
                             null,
-                            options, 
-                            options[1]
+                            options2, 
+                            options2[1]
                     );
 
                     if(optionResult != 0){
                         /*TODO questa cosa si può controllare anche a livello applicativo e sarebbe più efficiente */
-                        String gotTipi = (String)tipiSelector.getSelectedItem();
-                        if(gotTipi.equals("TELAIO"))
-                            operationManager.insertComponenteWithCheck(
+                        String gotTipo = (String)tipiSelector.getSelectedItem();
+                        //provo ad inserire componente 
+                        if(gotTipo.equals("TELAIO"))
+                            //inserisco tipo telaio
+                            result = operationManager.insertComponenteWithCheck(
                                 componentePanel.getListTextField(0).getSelectedText(),
-                                componentePanel.getListTextField(0).getSelectedText()
-                                componentePanel.getListTextField(0).getSelectedText()
-                                componentePanel.getListTextField(0).getSelectedText()
+                                vettura,
+                                componentePanel.getListTextField(1).getSelectedText(),
+                                componentePanel.getListTextField(2).getSelectedText(),
+                                "TELAIO",
+                                null,
+                                null,
+                                null,
+                                null,
+                                telaioPanel.getListTextField(1).getSelectedText(),
+                                telaioPanel.getListTextField(0).getSelectedText(),
+                                componentePanel.getListTextField(3).getSelectedText()
                             );
-                            /* TODO continuare */
+                        else if(gotTipo.equals("MOTORE"))
+                            //inserisco tipo motore
+                            result = operationManager.insertComponenteWithCheck(
+                                componentePanel.getListTextField(0).getSelectedText(),
+                                vettura,
+                                componentePanel.getListTextField(1).getSelectedText(),
+                                componentePanel.getListTextField(2).getSelectedText(),
+                                "MOTORE",
+                                motorePanel.getListTextField(1).getSelectedText(),
+                                (String)motorePanel.getListComboBox(2).getSelectedItem(),
+                                motorePanel.getListTextField(0).getSelectedText(),
+                                null,
+                                null,
+                                null,
+                                componentePanel.getListTextField(3).getSelectedText()
+                            );
+                        else if(gotTipo.equals("CAMBIO"))
+                            //inserisco tipo cambio
+                            result = operationManager.insertComponenteWithCheck(
+                                componentePanel.getListTextField(0).getSelectedText(),
+                                vettura,
+                                componentePanel.getListTextField(1).getSelectedText(),
+                                componentePanel.getListTextField(2).getSelectedText(),
+                                "CAMBIO",
+                                null,
+                                null,
+                                null,
+                                (String)cambioPanel.getListComboBox(0).getSelectedItem(),
+                                null,
+                                null,
+                                componentePanel.getListTextField(3).getSelectedText()
+                            );
+                        if(result != 1){
+                            JOptionPane.showMessageDialog(parentPanel, "Errore nell'inserimento componente...");
+                            break;
+                        }
                     }
                 }
-
             }
             else
-                JOptionPane.showMessageDialog(parentPanel, "Errore nell'inserimento...");
+                JOptionPane.showMessageDialog(parentPanel, "Errore nell'inserimento vettura...");
         }
     }
 }

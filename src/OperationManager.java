@@ -3,11 +3,25 @@ import java.util.*;
 
 public class OperationManager extends DBmanager{
 
-    static private int lastNumeroGara = 0;
+    private int lastNumeroGara;
+
+    public int getLastNumeroGara(){
+        return lastNumeroGara;
+    }
     
     public OperationManager(Connection con){
         super(con);
+        lastNumeroGara = fetchLastNumeroGara();//prendo l'ultimo numero gara dal database
     }   
+
+    //funzione che prende lastNumeroGara dal DB tramite una SELECT
+    private int fetchLastNumeroGara(){
+        List<Map<String, Object>> selectResult = runQuery(
+            "SELECT MAX(numeroGara) AS lastNumeroGara FROM vettura;");
+        Object elemento = selectResult.get(0).get("lastNumeroGara");
+
+        return ((Number)elemento).intValue();
+    }
 
     public static String putApici(String str){
         return "'" + str + "'";
@@ -23,7 +37,10 @@ public class OperationManager extends DBmanager{
 
         result.append("(");
         for (int i = 0; i < stringhe.length; i++ ) {
-            result.append(putApici(stringhe[i]));
+            if(stringhe[i] != null)
+                result.append(stringhe[i]);
+            else
+                result.append("null");
 
             if (i < stringhe.length - 1) {
                 result.append(", ");
@@ -38,14 +55,14 @@ public class OperationManager extends DBmanager{
     // operazione 1: registrazione di una scuderia
     public int insertScuderia (String nome, String paese){
         
-        String query = "INSERT INTO scuderia(nome, paese) VALUES " + makeAttributi(nome, paese) + ";";
+        String query = "INSERT INTO scuderia(nome, paese) VALUES " + makeAttributi(putApici(paese), putApici(paese)) + ";";
         return runUpdate(query);
     }
 
     //operazione 2
     public int insertVettura(String modello, String scuderia){
         lastNumeroGara++;
-        String query = "INSERT INTO vettura(numeroGara, modello, scuderia) VALUES" + makeAttributi(Integer.toString(lastNumeroGara), modello, scuderia) + ";";
+        String query = "INSERT INTO vettura(numeroGara, modello, scuderia) VALUES" + makeAttributi(Integer.toString(lastNumeroGara), putApici(modello), putApici(scuderia)) + ";";
         return runUpdate(query); 
 
     }
@@ -56,28 +73,30 @@ public class OperationManager extends DBmanager{
         String dataInstall, 
         String costo, 
         String tipo, 
-        String nCilindri,
-        String tipoMotore,
-        String cilindrata,
+        String nCilindri, 
+        String tipoMotore, 
+        String cilindrata, 
         String nMarce,
         String peso,
         String materiale,
         String costruttore
     ){
-        String query = "INSERT INTO costruttore VALUES " + makeAttributi(
+        String query = "INSERT INTO componente VALUES " + makeAttributi(
                 codice,
                 vettura, 
-                dataInstall, 
+                putApici(dataInstall), 
                 costo, 
-                tipo, 
+                putApici(tipo), 
                 nCilindri, 
-                tipoMotore, 
+                putApici(tipoMotore), 
                 cilindrata,
                 nMarce,
                 peso,
-                materiale,
-                costruttore
+                putApici(materiale),
+                putApici(costruttore)
             ) + ";";    
+
+        System.out.println(query);
         return runUpdate(query);
     }
 
@@ -101,13 +120,13 @@ public class OperationManager extends DBmanager{
 
         String query = "INSERT INTO pilota(vettura, nome, cognome, dataNascita, nazionalita, tipo, nLicenze, data1Licenza) VALUES "+ makeAttributi(
                 vettura,
-                nome,
-                cognome,
-                dataNascita,
-                nazionalita,
-                tipo,
+                putApici(nome),
+                putApici(cognome),
+                putApici(dataNascita),
+                putApici(nazionalita),
+                putApici(tipo),
                 nLicenze,
-                data1Licenza
+                putApici(data1Licenza)
             ) + ";"; 
         return runUpdate(query);
     }
@@ -120,7 +139,7 @@ public class OperationManager extends DBmanager{
 
     //operazione 5: iscruzione di una vettura ad una gara
     public int insertIscrizione(String gara, String vettura){
-        String query = "INSERT INTO iscrizione(gara, vettura) VALUES " + makeAttributi(gara, vettura) + ";"; 
+        String query = "INSERT INTO iscrizione(gara, vettura) VALUES " + makeAttributi(putApici(gara), vettura) + ";"; 
         return runUpdate(query);
     }
 

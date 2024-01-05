@@ -22,7 +22,7 @@ public class Main{
 
         BtnAction.operationManager = op;
 
-        Btn1Action btn = new Btn1Action(null);
+        BtnAction btn = new Btn2Action(null);
 
         btn.showAction();
 
