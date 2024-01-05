@@ -1,3 +1,4 @@
+import javax.imageio.plugins.tiff.TIFFDirectory;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -7,13 +8,35 @@ public class ActionPanel extends JPanel{
     
     public List<JComponent> panelInputs = new ArrayList<>(); 
 
+    public void cleanPanel(){
+        JTextField text;
+        JComboBox<String> box;
+        for(int i = 0; i < panelInputs.size(); i++){
+            text = getListTextField(i);
+            if(text != null)
+                text.setText("");
+            else{
+                box = getListComboBox(i);
+                if(box != null)
+                    box.setSelectedIndex(0);
+            }
+        }
+    }
 
     public JTextField getListTextField(int i){
-        return (JTextField)panelInputs.get(i);
+        try{
+            return (JTextField)panelInputs.get(i);
+        }catch(Exception e){
+            return null;
+        }
     }
 
     public JComboBox<String> getListComboBox(int i){
-        return (JComboBox<String>)panelInputs.get(i);
+        try{
+            return (JComboBox<String>)panelInputs.get(i);
+        }catch(Exception e){
+            return null;
+        }
     }
 
     /**modo semplice per ottenere un JScrollPane personalizzato
@@ -23,6 +46,7 @@ public class ActionPanel extends JPanel{
      */
     public static JScrollPane getNewScrollTable(List<Map<String, Object>> list){
         JTable table = getNewTable(list);
+
         JScrollPane  scroll = new JScrollPane(table);
         return scroll;
     };
@@ -41,9 +65,12 @@ public class ActionPanel extends JPanel{
     }
 
     public static Object[][] resultToMatrix(List<Map<String, Object>> list){
-        List<String> keyList = new ArrayList<>(list.get(0).keySet());
         int sizeY = list.size();
+        if(sizeY == 0)
+            return new Object[0][0];
         int sizeX = list.get(0).size();
+        List<String> keyList = new ArrayList<>(list.get(0).keySet());
+        
         Object[][] matrix = new Object[sizeY][sizeX];
         for(int i = 0; i < sizeY; i++){
             Map<String, Object> map = list.get(i);

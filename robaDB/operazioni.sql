@@ -50,7 +50,7 @@ FROM
 	FROM circuito JOIN gara
 	ON circuito.nome = gara.circuito) AS paesiGare
 JOIN
-	(SELECT gara, esito, codicePilota, nome AS nomePilota, cognome AS nomePilota, nazionalita AS nazionalitaPilota
+	(SELECT gara, esito, codicePilota, nome AS nomePilota, cognome AS cognomePilota, nazionalita AS nazionalitaPilota
 	FROM iscrizione JOIN pilota
 	ON iscrizione.vettura = pilota.vettura) AS vetturePiloti
 ON nomeGara = gara
@@ -61,7 +61,6 @@ WHERE paeseGara = nazionalitaPilota AND esito = 1;
 SELECT scuderia, COUNT(CASE WHEN quotaFinanziamento IS NOT NULL THEN codicePilota END)/COUNT(codicePilota) AS percentualeGM
 FROM vettura JOIN pilota
 ON vettura.numeroGara = pilota.vettura
-WHERE quotaFinanziamento IS NOT NULL
 GROUP BY scuderia;
 
 -- operazione 12

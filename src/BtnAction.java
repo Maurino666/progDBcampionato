@@ -7,5 +7,6 @@ public abstract class BtnAction {
     JPanel parentPanel;
 
     public void showAction(){};
+    public void showAction(int selectIndex){};
 
 }

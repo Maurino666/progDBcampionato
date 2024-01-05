@@ -111,46 +111,51 @@ public class Btn2Action extends BtnAction{
                     if(optionResult != 0){
                         /*TODO questa cosa si può controllare anche a livello applicativo e sarebbe più efficiente */
                         String gotTipo = (String)tipiSelector.getSelectedItem();
+                        String costruttore = componentePanel.getListTextField(3).getText();
                         //provo ad inserire componente 
-                        if(gotTipo.equals("TELAIO"))
+
+                        if(gotTipo.equals("TELAIO")){
                             //inserisco tipo telaio
                             result = operationManager.insertComponenteWithCheck(
-                                componentePanel.getListTextField(0).getSelectedText(),
+                                componentePanel.getListTextField(0).getText(),
                                 vettura,
-                                componentePanel.getListTextField(1).getSelectedText(),
-                                componentePanel.getListTextField(2).getSelectedText(),
+                                componentePanel.getListTextField(1).getText(),
+                                componentePanel.getListTextField(2).getText(),
                                 "TELAIO",
                                 null,
                                 null,
                                 null,
                                 null,
-                                telaioPanel.getListTextField(1).getSelectedText(),
-                                telaioPanel.getListTextField(0).getSelectedText(),
-                                componentePanel.getListTextField(3).getSelectedText()
+                                telaioPanel.getListTextField(1).getText(),
+                                telaioPanel.getListTextField(0).getText(),
+                                costruttore
                             );
-                        else if(gotTipo.equals("MOTORE"))
+                            
+                        }
+                        else if(gotTipo.equals("MOTORE")){
                             //inserisco tipo motore
                             result = operationManager.insertComponenteWithCheck(
-                                componentePanel.getListTextField(0).getSelectedText(),
+                                componentePanel.getListTextField(0).getText(),
                                 vettura,
-                                componentePanel.getListTextField(1).getSelectedText(),
-                                componentePanel.getListTextField(2).getSelectedText(),
+                                componentePanel.getListTextField(1).getText(),
+                                componentePanel.getListTextField(2).getText(),
                                 "MOTORE",
-                                motorePanel.getListTextField(1).getSelectedText(),
+                                motorePanel.getListTextField(1).getText(),
                                 (String)motorePanel.getListComboBox(2).getSelectedItem(),
-                                motorePanel.getListTextField(0).getSelectedText(),
+                                motorePanel.getListTextField(0).getText(),
                                 null,
                                 null,
                                 null,
-                                componentePanel.getListTextField(3).getSelectedText()
+                                costruttore
                             );
-                        else if(gotTipo.equals("CAMBIO"))
+                        }
+                        else if(gotTipo.equals("CAMBIO")){
                             //inserisco tipo cambio
                             result = operationManager.insertComponenteWithCheck(
-                                componentePanel.getListTextField(0).getSelectedText(),
+                                componentePanel.getListTextField(0).getText(),
                                 vettura,
-                                componentePanel.getListTextField(1).getSelectedText(),
-                                componentePanel.getListTextField(2).getSelectedText(),
+                                componentePanel.getListTextField(1).getText(),
+                                componentePanel.getListTextField(2).getText(),
                                 "CAMBIO",
                                 null,
                                 null,
@@ -158,12 +163,18 @@ public class Btn2Action extends BtnAction{
                                 (String)cambioPanel.getListComboBox(0).getSelectedItem(),
                                 null,
                                 null,
-                                componentePanel.getListTextField(3).getSelectedText()
+                                costruttore
                             );
+                        }
                         if(result != 1){
                             JOptionPane.showMessageDialog(parentPanel, "Errore nell'inserimento componente...");
                             break;
                         }
+                        componentePanel.cleanPanel();
+                        telaioPanel.cleanPanel();
+                        motorePanel.cleanPanel();
+                        cambioPanel.cleanPanel();
+                        operationManager.incrementCostruttore(costruttore);
                     }
                 }
             }

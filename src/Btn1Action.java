@@ -38,5 +38,7 @@ public class Btn1Action extends BtnAction{
             else
                 JOptionPane.showMessageDialog(parentPanel, "Errore nell'inserimento...");
         }
+
+        mainPanel.cleanPanel();
     }
 }

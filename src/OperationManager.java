@@ -24,6 +24,8 @@ public class OperationManager extends DBmanager{
     }
 
     public static String putApici(String str){
+        if(str == null)
+            return null;
         return "'" + str + "'";
     }
     
@@ -237,7 +239,7 @@ public class OperationManager extends DBmanager{
                 "\tFROM circuito JOIN gara\r\n" + //
                 "\tON circuito.nome = gara.circuito) AS paesiGare\r\n" + //
                 "JOIN\r\n" + //
-                "\t(SELECT gara, esito, codicePilota, nome AS nomePilota, cognome AS nomePilota, nazionalita AS nazionalitaPilota\r\n" + //
+                "\t(SELECT gara, esito, codicePilota, nome AS nomePilota, cognome AS cognomePilota, nazionalita AS nazionalitaPilota\r\n" + //
                 "\tFROM iscrizione JOIN pilota\r\n" + //
                 "\tON iscrizione.vettura = pilota.vettura) AS vetturePiloti\r\n" + //
                 "ON nomeGara = gara\r\n" + //
@@ -251,7 +253,6 @@ public class OperationManager extends DBmanager{
                 "SELECT scuderia, COUNT(CASE WHEN quotaFinanziamento IS NOT NULL THEN codicePilota END)/COUNT(codicePilota) AS percentualeGM\r\n" + //
                 "FROM vettura JOIN pilota\r\n" + //
                 "ON vettura.numeroGara = pilota.vettura\r\n" + //
-                "WHERE quotaFinanziamento IS NOT NULL\r\n" + //
                 "GROUP BY scuderia;";
         return runQuery(query);
     }
@@ -284,7 +285,7 @@ public class OperationManager extends DBmanager{
     //operazione 15: report che elenchi ciascuna scuderia sulla base del rapporto punti/minuti di gara, mediando tra le macchine appartenenti a ciascuna scuderia
     public List<Map<String, Object>> getReportPuntiMinuti() {
         String query = 
-                "SELECT scuderia, AVG(punti/tempo)\r\n" + //
+                "SELECT scuderia, AVG(punti/tempo) AS media punti/tempo\r\n" + //
                 "FROM vettura JOIN\r\n" + //
                 "\t(SELECT vettura, SUM(gara.durata) AS tempo\r\n" + //
                 "\tFROM gara JOIN iscrizione\r\n" + //

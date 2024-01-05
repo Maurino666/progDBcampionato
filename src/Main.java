@@ -22,9 +22,10 @@ public class Main{
 
         BtnAction.operationManager = op;
 
-        BtnAction btn = new Btn2Action(null);
+        BtnAction btn = new BtnSelectAction(null);
 
-        btn.showAction();
+        for(int i = 0; i< 7; i++)
+            btn.showAction(i);
 
     }
 }
