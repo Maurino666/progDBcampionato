@@ -9,6 +9,33 @@ public class DBmanager {
         this.con = con;
     }
 
+    public void transactionBegin(){
+
+        try{
+            con.setAutoCommit(false);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void transactionCommit(){
+        try{
+            con.commit();
+            con.setAutoCommit(true);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void transactionRollback(){
+        try{
+            con.rollback();
+            con.setAutoCommit(true);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public List<Map<String, Object>> runQuery(String query){
         
         Statement statement = null;

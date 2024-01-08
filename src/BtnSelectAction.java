@@ -13,31 +13,31 @@ public class BtnSelectAction extends BtnAction{
         List<Map<String, Object>> resultTable = null;
         switch (selectIndex){
             //operazione 8
-            case 0: 
+            case 8: 
                 resultTable = operationManager.getFinanziamentiScuderie();
                 break;
             //operazione 9
-            case 1:
+            case 9:
                 resultTable = operationManager.getReportScuderie();
                 break;
             //operazione 10
-            case 2:
+            case 10:
                 resultTable = operationManager.getPilotiCasaVincenti();
                 break;
             //operazione 11
-            case 3:
+            case 11:
                 resultTable = operationManager.getPercentualeGD();
                 break;
             //operazione 12
-            case 4:
+            case 12:
                 resultTable = operationManager.getCostruttori();
                 break;
             //operazione 13
-            case 5:
+            case 13:
                 resultTable = operationManager.getClassificaVetture();
                 break;
             //operazione 15
-            case 6:
+            case 15:
                 resultTable = operationManager.getReportPuntiMinuti();
                 break;
         }

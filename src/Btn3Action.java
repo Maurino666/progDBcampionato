@@ -112,5 +112,3 @@ public class Btn3Action extends BtnAction{
         proPanel.cleanPanel();
     }
 }
-
-

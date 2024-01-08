@@ -156,7 +156,7 @@ public class OperationManager extends DBmanager{
         int result1, result2;
         
         if(motivoRitiro == null){
-            query1 = "UPDATE iscrizione SET esito = " + esito + " WHERE gara = " + putApici(gara) + " AND vettura = " + vettura + ";";
+            query1 = "UPDATE iscrizione SET esito = " + esito + " WHERE gara = " + putApici(gara) + " AND vettura = " + vettura + " AND esito = null AND motivoRitiro = null;";
             query2 = "UPDATE vettura SET punti = punti + " + Integer.toString(esitoToPunti(Integer.parseInt(esito))) + " WHERE numeroGara = " + vettura + ";";
             result1 = runUpdate(query1);
             result2 = runUpdate(query2);
@@ -164,7 +164,7 @@ public class OperationManager extends DBmanager{
             return (result1 == -1 || result2 == -1)? -1 : result1 + result2;
         }
     
-        query1 = "UPDATE iscrizione SET motivoRitiro = " + putApici(motivoRitiro) + " WHERE gara = " + putApici(gara) + " AND vettura = " + vettura + ";";
+        query1 = "UPDATE iscrizione SET motivoRitiro = " + putApici(motivoRitiro) + " WHERE gara = " + putApici(gara) + " AND vettura = " + vettura + " AND esito = null AND motivoRitiro = null;";
         return runUpdate(query1);
     }
 

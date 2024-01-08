@@ -1,4 +1,3 @@
-import javax.imageio.plugins.tiff.TIFFDirectory;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
