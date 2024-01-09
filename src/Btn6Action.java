@@ -88,7 +88,7 @@ public class Btn6Action extends BtnAction{
             List<Map<String, Object>> table = operationManager.getVettureGara(gara);
             operationManager.transactionBegin();
             for(Map<String, Object> record : table){
-                if(updateSingleIscrizione(((Integer)record.get("vettura")).toString(), gara) < 1){
+                if(updateSingleIscrizione(((Integer)record.get("vettura")).toString(), gara)){
                     operationManager.transactionRollback();
                     JOptionPane.showMessageDialog(parentPanel, "Aggiornamenti falliti...");
                     garaPanel.cleanPanel();
@@ -99,9 +99,9 @@ public class Btn6Action extends BtnAction{
         }
     }
 
-    private int updateSingleIscrizione(String vettura, String gara){
+    private boolean updateSingleIscrizione(String vettura, String gara){
         Object[] options = {"annulla", "continua"};
-        int result = -1;
+        boolean result = false;
         int optionResult = JOptionPane.showOptionDialog(
             parentPanel,
             mainUpdatePanel,
@@ -116,18 +116,20 @@ public class Btn6Action extends BtnAction{
         if(optionResult == 1){
             String gotTipo = (String)tipiSelector.getSelectedItem();
             if(gotTipo.equals("COMPLETATO")){
-                result = operationManager.updateEsito(
+                result = (operationManager.updateEsito(
                     gara, 
                     vettura, 
                     esitoPanel.getListTextField(0).getText(), 
-                    null);
+                    null
+                ) == 2);
                 
             }else{
-                result = operationManager.updateEsito(
+                result = (operationManager.updateEsito(
                     gara, 
                     vettura, 
                     null, 
-                    (String)ritiroPanel.getListComboBox(0).getSelectedItem());
+                    (String)ritiroPanel.getListComboBox(0).getSelectedItem()
+                ) == 1);
             }
             tipoPanel.cleanPanel();
             esitoPanel.cleanPanel();

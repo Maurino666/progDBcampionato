@@ -57,7 +57,7 @@ ON DELETE CASCADE,
 
 PRIMARY KEY(gara, vettura),
 
-CHECK (NOT(esito IS NOT NULL AND motivoRitito IS NOT NULL))
+CHECK (NOT(esito IS NOT NULL AND motivoRitiro IS NOT NULL))
 ); 
 
 -- creazione tabella pilota
@@ -119,9 +119,4 @@ CHECK(NOT(tipo <> 'TELAIO' AND (materiale IS NOT NULL OR peso IS NOT NULL))),
 CHECK(NOT(tipo <> 'CAMBIO' AND nMarce IS NOT NULL)),
 CHECK(NOT(tipo <> 'MOTORE' AND (tipoMotore IS NOT NULL OR cilindrata IS NOT NULL OR nCilindri IS NOT NULL)))
 );
-
-
-
-
-
 

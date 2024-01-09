@@ -22,9 +22,9 @@ VALUES
 -- Popolamento della tabella vettura
 INSERT INTO vettura (modello, scuderia)
 VALUES 
-    ('Pandino', 'Red Bull'),
-    ('Ferrari Roma', 'Ferrari'),
-    ('VF23', 'Haas');
+    (1, 'Pandino', 'Red Bull'),
+    (2, 'Ferrari Roma', 'Ferrari'),
+    (3, 'VF23', 'Haas');
 
 -- Popolamento della tabella iscrizione
 INSERT INTO iscrizione (gara, vettura)
