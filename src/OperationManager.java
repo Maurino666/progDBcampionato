@@ -165,6 +165,7 @@ public class OperationManager extends DBmanager{
         }
     
         query1 = "UPDATE iscrizione SET motivoRitiro = " + putApici(motivoRitiro) + " WHERE gara = " + putApici(gara) + " AND vettura = " + vettura + " AND esito IS NULL AND motivoRitiro IS NULL;";
+        System.out.println(gara + vettura + esito + motivoRitiro);
         return runUpdate(query1);
     }
 
@@ -281,6 +282,17 @@ public class OperationManager extends DBmanager{
                 "ORDER BY punti DESC;";
         return runQuery(query);
     }
+    
+    public List<Map<String, Object>> getClassificaMotoreTurbo (){
+        String query = 
+                "SELECT punti, numeroGara \r\n" + //
+                "FROM vettura JOIN componente\r\n" + //
+                "ON vettura.numeroGara = componente.vettura\r\n" + //
+                "WHERE  tipoMotore = 'TURBO'\r\n" + //
+                "ORDER BY punti DESC;";
+        return runQuery(query);
+    }
+
 
     //operazione 15: report che elenchi ciascuna scuderia sulla base del rapporto punti/minuti di gara, mediando tra le macchine appartenenti a ciascuna scuderia
     public List<Map<String, Object>> getReportPuntiMinuti() {

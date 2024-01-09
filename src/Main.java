@@ -22,9 +22,11 @@ public class Main{
 
         BtnAction.operationManager = op;
 
-        BtnAction btn = new Btn6Action(null);
+    
+        BtnAction btn = new Btn14Action(null);
 
         btn.showAction();
 
+    
     }
 }

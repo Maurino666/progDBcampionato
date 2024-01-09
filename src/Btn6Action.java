@@ -88,7 +88,7 @@ public class Btn6Action extends BtnAction{
             List<Map<String, Object>> table = operationManager.getVettureGara(gara);
             operationManager.transactionBegin();
             for(Map<String, Object> record : table){
-                if(updateSingleIscrizione(((Integer)record.get("vettura")).toString(), gara)){
+                if(updateSingleIscrizione(((Integer)record.get("vettura")).toString(), gara) == false){
                     operationManager.transactionRollback();
                     JOptionPane.showMessageDialog(parentPanel, "Aggiornamenti falliti...");
                     garaPanel.cleanPanel();
