@@ -75,7 +75,7 @@ public class Btn6Action extends BtnAction{
         int optionResult = JOptionPane.showOptionDialog(
             parentPanel,
             garaPanel,
-            "Inserisci i dettagli",
+            "Inserisci gara compiuta",
             JOptionPane.OK_CANCEL_OPTION,
             JOptionPane.PLAIN_MESSAGE,
             null,

@@ -20,7 +20,7 @@ public class Btn1Action extends BtnAction{
         int optionResult = JOptionPane.showOptionDialog(
                 parentPanel,
                 mainPanel,
-                "Inserisci i dettagli",
+                "Inserisci i dettagli scuderia",
                 JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE,
                 null,

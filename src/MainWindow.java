@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 public class MainWindow extends JFrame{
     
@@ -10,6 +11,7 @@ public class MainWindow extends JFrame{
 
     //Bottoni mainPanel
     JButton[] opButton = new JButton[15];
+    BtnAction[] buttonActions = new BtnAction[9];
 
     public MainWindow(String title){ 
         super(title); 
@@ -40,9 +42,58 @@ public class MainWindow extends JFrame{
             opButton[i] = new JButton("Op" + (i+1));  
             mainPanel.add(opButton[i]);
         }
-
-
-
+        initButtons();
+        initActions();
         mainPanel.setVisible(true);
     };
+
+    private void initActions(){
+
+        for (int i = 0; i < 7; i++) {
+
+            final int index = i; 
+
+            opButton[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    buttonActions[index].showAction();
+                }
+            });
+        }
+
+        for(int i = 7; i<15; i++){
+            final int index = i; 
+
+            if(i == 13){
+                opButton[i].addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        buttonActions[7].showAction();
+                    }
+                 });
+            }
+            opButton[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    buttonActions[8].showAction(index+1);
+                }
+            });
+
+
+        }
+        
+    }
+
+
+    private void initButtons(){
+        buttonActions[0] = new Btn1Action(mainPanel);
+        buttonActions[1] = new Btn2Action(mainPanel);
+        buttonActions[2] = new Btn3Action(mainPanel);
+        buttonActions[3] = new Btn4Action(mainPanel);
+        buttonActions[4] = new Btn5Action(mainPanel);
+        buttonActions[5] = new Btn6Action(mainPanel);
+        buttonActions[6] = new Btn7Action(mainPanel);
+        buttonActions[7] = new Btn14Action(mainPanel);
+        buttonActions[8] = new BtnSelectAction(mainPanel);
+    }
 }

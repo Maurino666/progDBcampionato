@@ -22,10 +22,7 @@ public class Main{
 
         BtnAction.operationManager = op;
 
-    
-        BtnAction btn = new Btn14Action(null);
-
-        btn.showAction();
+        MainWindow mainWindow = new MainWindow("mia sorella morta");
 
     
     }
