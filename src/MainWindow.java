@@ -72,13 +72,17 @@ public class MainWindow extends JFrame{
                     }
                  });
             }
-            opButton[i].addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    buttonActions[8].showAction(index+1);
-                }
-            });
 
+            else{
+
+                opButton[i].addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        buttonActions[8].showAction(index+1);
+                    }
+                });
+            }
+           
 
         }
         
@@ -86,7 +90,7 @@ public class MainWindow extends JFrame{
 
 
     private void initButtons(){
-        buttonActions[0] = new Btn1Action(mainPanel);
+        buttonActions[0] = (BtnAction)new Btn1Action(mainPanel);
         buttonActions[1] = new Btn2Action(mainPanel);
         buttonActions[2] = new Btn3Action(mainPanel);
         buttonActions[3] = new Btn4Action(mainPanel);

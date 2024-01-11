@@ -28,15 +28,21 @@ public class Btn4Action extends BtnAction{
         );
 
         if(optionResult == 1){
-            int result = operationManager.updateFinanziamento(
-                    mainPanel.getListTextField(0).getText(),
-                    mainPanel.getListTextField(1).getText()
-                );
-            if(result == 1){
-                JOptionPane.showMessageDialog(parentPanel, "Finanziamento avvenuto con successo!");
+            String pilota = mainPanel.getListTextField(0).getText();
+            if(operationManager.countNonGD(pilota) != 1){
+                int result = operationManager.updateFinanziamento(
+                        pilota,
+                        mainPanel.getListTextField(1).getText()
+                    );
+                if(result == 1){
+                    JOptionPane.showMessageDialog(parentPanel, "Finanziamento avvenuto con successo!");
+                }
+                else{
+                    JOptionPane.showMessageDialog(parentPanel, "Finanziamento fallito...");
+                }
             }
             else{
-                JOptionPane.showMessageDialog(parentPanel, "Finanziamento fallito...");
+                JOptionPane.showMessageDialog(parentPanel, "Non ci sono abbastanza piloti nell'equipaggio...");
             }
         }
 

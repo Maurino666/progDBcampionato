@@ -134,6 +134,16 @@ public class OperationManager extends DBmanager{
     }
 
     //operazione 4: registrazione di un finanziamento per una scuderia
+    public int countNonGD(String pilota){
+        String query = "SELECT COUNT(codicePilota) AS piloti\r\n" + //
+                "FROM pilota\r\n" + //
+                "WHERE quotaFinanziamento IS NULL AND vettura IN (\r\n" + //
+                "\tSELECT vettura\r\n" + //
+                "\tFROM pilota\r\n" + //
+                "\tWHERE codicePilota = "+ pilota + ");";
+        List<Map<String, Object>> result = runQuery(query);
+        return ((Number)result.get(0).get("piloti")).intValue();
+    }
     public int updateFinanziamento(String codicePilota, String quotaFinanziamento){
         String query = "UPDATE pilota SET quotaFinanziamento = " + quotaFinanziamento + " WHERE codicePilota = " + codicePilota + " AND quotaFinanziamento IS NULL;";
         return runUpdate(query);
@@ -296,7 +306,8 @@ public class OperationManager extends DBmanager{
 
     //operazione 15: report che elenchi ciascuna scuderia sulla base del rapporto punti/minuti di gara, mediando tra le macchine appartenenti a ciascuna scuderia
     public List<Map<String, Object>> getReportPuntiMinuti() {
-        String query = 
+
+       /*        String query = 
                 "SELECT scuderia, AVG(punti/tempo) AS mediaPuntiTempo\r\n" + //
                 "FROM vettura JOIN\r\n" + //
                 "\t(SELECT vettura, SUM(gara.durata) AS tempo\r\n" + //
@@ -305,7 +316,17 @@ public class OperationManager extends DBmanager{
                 "\tGROUP BY vettura) AS tempoVettura\r\n" + //
                 "ON vettura.numeroGara = tempoVettura.vettura\r\n" + //
                 "GROUP BY scuderia;";
-        return runQuery(query);
+
+        */
+        String query = "SELECT scuderia, AVG(vettura.punti / tempoVettura.tempo) AS media_punti_per_tempo\r\n" +//
+                        "FROM vettura JOIN \r\n" + //
+                        "\t(SELECT vettura, (SUM(TIME_TO_SEC(gara.durata)/60)) AS tempo\r\n"+ //
+                        "\tFROM gara JOIN iscrizione ON gara.nome = iscrizione.gara\r\n" +//
+                        "\tGROUP BY vettura) AS tempoVettura\r\n" + //
+                        "\tON vettura.numeroGara = tempoVettura.vettura\r\n" + //
+                        "\tGROUP BY scuderia;";
+
+                        return runQuery(query);
     }
 
 }

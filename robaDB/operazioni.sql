@@ -13,6 +13,14 @@ UPDATE costruttore SET nComponenti = nComponenti + 1 WHERE ragioneSociale = [cos
 INSERT INTO pilota(vettura, nome, cognome, dataNascita, nazionalita, tipo, nLicenze, data1Licenza) VALUES ();
 
 -- operazione 4
+-- select per controllo 
+SELECT COUNT(codicePilota)
+FROM pilota
+WHERE vettura IN (
+	SELECT vettura
+	FROM pilota
+	WHERE codicePilota = [codicePilota]);
+-- update finanziamento pilota
 UPDATE pilota 
 SET quotaFinanziamento = [valore]
 WHERE codicePilota = [codice] AND quotaFinanziamento IS NULL;
