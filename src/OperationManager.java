@@ -61,7 +61,7 @@ public class OperationManager extends DBmanager{
         return runUpdate(query);
     }
 
-    //operazione 2
+    //operazione 2: inserisce una vettura con i componenti 
     public int insertVettura(String modello, String scuderia){
         lastNumeroGara++;
         String query = "INSERT INTO vettura(numeroGara, modello, scuderia) VALUES" + makeAttributi(Integer.toString(lastNumeroGara), putApici(modello), putApici(scuderia)) + ";";
