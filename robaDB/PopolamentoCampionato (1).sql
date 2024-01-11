@@ -6,11 +6,11 @@ VALUES
     ('Circuito di Zurigo', 'Svizzera', 12, 5.2);
 
 -- Popolamento della tabella gara
-INSERT INTO gara (nome, data, circuito)
+INSERT INTO gara (nome, data, durata , circuito)
 VALUES 
-    ('Gara 1', '2024-01-10', 'Circuito Internazionale Napoli'),
-    ('Gara 2', '2024-02-15', 'Circuito di Siracusa'),
-    ('Gara 3', '2024-03-20', 'Circuito di Zurigo');
+    ('Gara 1', '2024-01-10', '01:30:00' , 'Circuito Internazionale Napoli'),
+    ('Gara 2', '2024-02-15', '03:00:00' , 'Circuito di Siracusa'),
+    ('Gara 3', '2024-03-20', '00:45:30' , 'Circuito di Zurigo');
 
 -- Popolamento della tabella scuderia
 INSERT INTO scuderia (nome, paese)
@@ -43,9 +43,9 @@ VALUES
 -- Popolamento della tabella costruttore
 INSERT INTO costruttore (ragioneSociale, nome, sede, nComponenti)
 VALUES 
-    ('Brembo', 'Brembo', 'Stezzano', 50),
-    ('AP Racing', 'AP Racing', 'Coventry', 60),
-    ('Dallara', 'Dallara', 'Parma', 45);
+    ('Brembo', 'Brembo', 'Stezzano', 1),
+    ('AP Racing', 'AP Racing', 'Coventry', 1),
+    ('Dallara', 'Dallara', 'Parma', 1);
 
 -- Popolamento della tabella componente
 INSERT INTO componente (codice, vettura, dataInstallazione, costo, tipo, nCilindri, tipoMotore, cilindrata, nMarce, peso, materiale, costruttore)

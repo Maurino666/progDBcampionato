@@ -17,7 +17,7 @@ public class Btn14Action extends BtnAction{
         try{
             JOptionPane.showMessageDialog(parentPanel, ActionPanel.getNewScrollTable(resultTable), "Classifica motori aspirato", JOptionPane.PLAIN_MESSAGE);
         }catch(Exception e){
-            JOptionPane.showMessageDialog(parentPanel, "L'interrogazione al database non ha dato risultati", "Tabella risultati", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(parentPanel, "L'interrogazione al database non ha dato risultati", "Classifica motori aspirato", JOptionPane.PLAIN_MESSAGE);
         }
 
         resultTable = operationManager.getClassificaMotoreTurbo();
@@ -25,7 +25,7 @@ public class Btn14Action extends BtnAction{
         try{
             JOptionPane.showMessageDialog(parentPanel, ActionPanel.getNewScrollTable(resultTable), "Classifica motori turbo", JOptionPane.PLAIN_MESSAGE);
         }catch(Exception e){
-            JOptionPane.showMessageDialog(parentPanel, "L'interrogazione al database non ha dato risultati", "Tabella risultati", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(parentPanel, "L'interrogazione al database non ha dato risultati", "Classifica motori turbo", JOptionPane.PLAIN_MESSAGE);
         }
     }
 

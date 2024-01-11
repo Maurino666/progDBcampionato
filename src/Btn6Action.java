@@ -71,6 +71,7 @@ public class Btn6Action extends BtnAction{
 
     public void showAction(){
         String gara;
+        int count;
         Object[] options = {"annulla", "continua"};
         int optionResult = JOptionPane.showOptionDialog(
             parentPanel,
@@ -84,11 +85,11 @@ public class Btn6Action extends BtnAction{
         );
         if(optionResult == 1){
             gara = garaPanel.getListTextField(0).getText();
-            
+            count = operationManager.countVettureGara(gara);
             List<Map<String, Object>> table = operationManager.getVettureGara(gara);
             operationManager.transactionBegin();
             for(Map<String, Object> record : table){
-                if(updateSingleIscrizione(((Integer)record.get("vettura")).toString(), gara) == false){
+                if(updateSingleIscrizione(((Integer)record.get("vettura")).toString(), gara, count) == false){
                     operationManager.transactionRollback();
                     JOptionPane.showMessageDialog(parentPanel, "Aggiornamenti falliti...");
                     garaPanel.cleanPanel();
@@ -99,7 +100,7 @@ public class Btn6Action extends BtnAction{
         }
     }
 
-    private boolean updateSingleIscrizione(String vettura, String gara){
+    private boolean updateSingleIscrizione(String vettura, String gara, int esitoMax){
         Object[] options = {"annulla", "continua"};
         boolean result = false;
         int optionResult = JOptionPane.showOptionDialog(
@@ -116,6 +117,16 @@ public class Btn6Action extends BtnAction{
         if(optionResult == 1){
             String gotTipo = (String)tipiSelector.getSelectedItem();
             if(gotTipo.equals("COMPLETATO")){
+                String esito =  esitoPanel.getListTextField(0).getText();
+
+                if(Integer.parseInt(esito) <= 0 || Integer.parseInt(esito) > esitoMax){
+                    tipoPanel.cleanPanel();
+                    esitoPanel.cleanPanel();
+                    ritiroPanel.cleanPanel();
+
+                    return false;
+                }
+
                 result = (operationManager.updateEsito(
                     gara, 
                     vettura, 

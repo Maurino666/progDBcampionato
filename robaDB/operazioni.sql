@@ -29,7 +29,13 @@ WHERE codicePilota = [codice] AND quotaFinanziamento IS NULL;
 INSERT INTO iscrizione(gara, vettura) VALUES (,);
 
 -- operazione 6
+
+--conteggio numero vetture per quella gara
+SELECT COUNT(vettura) as vetture
+FROM iscrizione WHERE gara= 'Gara 1';
+
 SELECT vettura FROM iscrizione WHERE gara = [gara];
+
 -- per ogni vettura:
 UPDATE iscrizione SET esito = [esito], motivoRitiro = [motivo] WHERE gara = [gara] AND vettura = [vetturai];
 UPDATE vettura SET punti = punti + [valore calcolato] WHERE numeroGara = [vettura];

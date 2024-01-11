@@ -13,7 +13,7 @@ lunghezza		FLOAT NOT NULL
 CREATE TABLE gara(
 nome			VARCHAR(32) PRIMARY KEY,
 data			DATE NOT NULL,
-durata			INT,
+durata			TIME NOT NULL,
 circuito		VARCHAR(32) NOT NULL,
 tipo			ENUM('ASCIUTTO','BAGNATO') DEFAULT 'ASCIUTTO' NOT NULL,
 
@@ -86,7 +86,7 @@ CREATE TABLE costruttore(
 ragioneSociale		VARCHAR(32) PRIMARY KEY,
 nome				VARCHAR(32) NOT NULL,
 sede				VARCHAR(32) NOT NULL,
-nComponenti			INT NOT NULL
+nComponenti			INT DEFAULT 0 NOT NULL
 );
 
 -- creazione tabella componente

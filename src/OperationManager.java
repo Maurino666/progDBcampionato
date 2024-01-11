@@ -57,7 +57,7 @@ public class OperationManager extends DBmanager{
     // operazione 1: registrazione di una scuderia
     public int insertScuderia (String nome, String paese){
         
-        String query = "INSERT INTO scuderia(nome, paese) VALUES " + makeAttributi(putApici(paese), putApici(paese)) + ";";
+        String query = "INSERT INTO scuderia(nome, paese) VALUES " + makeAttributi(putApici(nome), putApici(paese)) + ";";
         return runUpdate(query);
     }
 
@@ -156,6 +156,12 @@ public class OperationManager extends DBmanager{
     }
 
     //operazione 6: registrazione del risultato conseguito da ciascuna vettura iscritta ad una gara
+    public int countVettureGara(String gara){
+        String query = "SELECT COUNT(vettura) as vetture FROM iscrizione WHERE gara = " + putApici(gara) + ";";
+        List<Map<String, Object>> result = runQuery(query);
+        return ((Number)result.get(0).get("vetture")).intValue();
+    }
+
     public List<Map<String, Object>> getVettureGara (String gara){
         String query = "SELECT vettura FROM iscrizione WHERE gara = " + putApici(gara) + ";";
         return runQuery(query);
@@ -261,7 +267,7 @@ public class OperationManager extends DBmanager{
     //operazione 11: per ciascuna scuderia visualizzare la percentuale gentlemand driver di cui si compone l'equipaggio
     public List<Map<String, Object>> getPercentualeGD (){
         String query = 
-                "SELECT scuderia, COUNT(CASE WHEN quotaFinanziamento IS NOT NULL THEN codicePilota END)/COUNT(codicePilota) AS percentualeGM\r\n" + //
+                "SELECT scuderia, COUNT(CASE WHEN quotaFinanziamento IS NOT NULL THEN codicePilota END)/ COUNT(codicePilota) * 100 AS percentualeGD\r\n" + //
                 "FROM vettura JOIN pilota\r\n" + //
                 "ON vettura.numeroGara = pilota.vettura\r\n" + //
                 "GROUP BY scuderia;";
@@ -307,17 +313,6 @@ public class OperationManager extends DBmanager{
     //operazione 15: report che elenchi ciascuna scuderia sulla base del rapporto punti/minuti di gara, mediando tra le macchine appartenenti a ciascuna scuderia
     public List<Map<String, Object>> getReportPuntiMinuti() {
 
-       /*        String query = 
-                "SELECT scuderia, AVG(punti/tempo) AS mediaPuntiTempo\r\n" + //
-                "FROM vettura JOIN\r\n" + //
-                "\t(SELECT vettura, SUM(gara.durata) AS tempo\r\n" + //
-                "\tFROM gara JOIN iscrizione\r\n" + //
-                "\tON gara.nome = iscrizione.gara\r\n" + //
-                "\tGROUP BY vettura) AS tempoVettura\r\n" + //
-                "ON vettura.numeroGara = tempoVettura.vettura\r\n" + //
-                "GROUP BY scuderia;";
-
-        */
         String query = "SELECT scuderia, AVG(vettura.punti / tempoVettura.tempo) AS media_punti_per_tempo\r\n" +//
                         "FROM vettura JOIN \r\n" + //
                         "\t(SELECT vettura, (SUM(TIME_TO_SEC(gara.durata)/60)) AS tempo\r\n"+ //
