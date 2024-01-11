@@ -297,7 +297,7 @@ public class OperationManager extends DBmanager{
     //operazione 15: report che elenchi ciascuna scuderia sulla base del rapporto punti/minuti di gara, mediando tra le macchine appartenenti a ciascuna scuderia
     public List<Map<String, Object>> getReportPuntiMinuti() {
         String query = 
-                "SELECT scuderia, AVG(punti/tempo) AS media punti/tempo\r\n" + //
+                "SELECT scuderia, AVG(punti/tempo) AS mediaPuntiTempo\r\n" + //
                 "FROM vettura JOIN\r\n" + //
                 "\t(SELECT vettura, SUM(gara.durata) AS tempo\r\n" + //
                 "\tFROM gara JOIN iscrizione\r\n" + //
